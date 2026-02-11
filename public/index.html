@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Parking</title>
+
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+
+      @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+      
+      
+  /* .nunito-<uniquifier> {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  } */
+    :root {
+      --bg-color: #FFFFFF;
+      --text-color: #333;
+      --card-bg: #ffffff;
+      --primary-color: #17B8A6;
+      --danger-color: #FF6363;
+      --shadow: rgba(0, 0, 0, 0.15);
+      --light-img: url('./img.png');
+      --icon: purple;
+    }
+
+    body.dark {
+      --bg-color: #1f1f1f;
+      --text-color: #f0f0f0;
+      --card-bg: #2c2c2c;
+      --shadow: rgba(255, 255, 255, 0.08);
+      --dark-img: url('./dark.png');
+      --icon:gold;
+
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      text-align: center;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      font-family: "Sansation", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 30px;
+    }
+
+    .theme-toggle {
+     
+      background-color: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--icon);
+      
+      width: 450px;
+      text-align: end;
+      margin-left: 120px;
+
+    }
+   
+
+    .status {
+      width: 75%;
+      border-radius: 35px;
+      box-shadow: 0 10px 25px var(--shadow);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      padding: 35px 50px;
+      text-align: left;
+      font-size: 20px; 
+      background-color: var(--card-bg);
+      height: 450px;
+      margin: 20px auto;
+      transition: background-color 0.4s ease;
+      animation: slideInLeftToRight 1.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    }
+
+
+    .status-image {
+      flex: 1;
+      text-align: center;
+    }
+
+    .status-image img {
+      width: 600px;
+      height: auto;
+      border-radius: 10%;
+    }
+
+    .status-info {
+      flex: 2;
+      padding-left: 20px;
+    }
+
+    .status-info h1 {
+      margin-bottom: 20px;
+    }
+
+    .status-info i {
+      color: var(--primary-color);
+    }
+
+    .status-info span {
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    .status-info .available {
+      color: #17B8A6;
+    }
+
+    .status-info .full {
+      color: var(--danger-color);
+    }
+
+    .message {
+      margin-top: 30px;
+      font-size: 22px;
+      font-weight: bold;
+      padding: 15px 25px;
+      display: inline-block;
+      border-radius: 28px;
+      background-color: #ecf0f1;
+      color: var(--primary-color);
+      box-shadow: 0 10px 25px var(--shadow);
+      transition: all 0.3s ease;
+    }
+
+    body.dark .message {
+      background-color: #333;
+    }
+
+    .granted {
+      background-color: #d4edda;
+      color: var(--primary-color);
+    }
+
+    .denied {
+      background-color: #f8d7da;
+      color: var(--danger-color);
+    }
+
+    .available {
+      color: #27ae60;
+    }
+
+    .full {
+      color: #e74c3c;
+    }
+    
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 10px;
+        height: auto;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: var(--bg-color);
+      }
+    
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+    
+      .theme-toggle {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        width: 100%;
+        text-align: right;
+        margin: 10px 0;
+        font-size: 20px;
+        margin-left: 0;
+      }
+    
+      .status {
+        flex-direction: column;
+        width: 100%;
+        padding: 20px;
+        height: auto;
+        box-sizing: border-box;
+        box-shadow: none;
+        background-color: var(--bg-color);
+      }
+    
+      .status-image {
+        width: 100%;
+        margin-bottom: 20px;
+        margin-top: 35px;
+      }
+    
+      .status-image img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+      }
+    
+      .status-info {
+        width: 100%;
+        padding-left: 0;
+        text-align: justify;
+      }
+    
+      .status-info h1 {
+        font-size: 20px;
+        margin-bottom: 15px;
+      }
+    
+      .status-info i {
+        font-size: 18px;
+        
+      }
+    
+      .message {
+        font-size: 18px;
+        padding: 12px 18px;
+        margin-top: 20px;
+      }
+    }
+    
+    @keyframes slideInLeftToRight {
+      0% {
+        transform: translateX(-100%) scale(0.95);
+        opacity: 0;
+      }
+      60% {
+        transform: translateX(10%) scale(1.02);
+        opacity: 0.7;
+      }
+      80% {
+        transform: translateX(-2%) scale(1.01);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+      }
+    }
+    
+    
+
+
+
+    
+  </style>
+</head>
+<body>
+
+  <!-- Toggle Theme Button -->
+ 
+
+  <div class="status">
+    <div class="status-info">
+      <h1>Smart Parking System</h1>
+      <p><i class="fas fa-car"></i> Cars in Parking: <span id="carCount">0</span></p>
+      <p><i class="fas fa-square-parking"></i> Available Slots: <span id="availableSlots">2</span></p>
+      <p><i class="fas fa-traffic-light"></i> Parking Status: <span id="parkingStatus" class="available">Available</span></p>
+      <div id="accessMessage" class="message">Accessing...</div>
+    </div>
+    <div class="status-image">
+      <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+      </button>
+      <img class="status-image-class" src="./img.png" alt="car" />
+    </div>
+  </div>
+
+  <!-- Socket.io -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    socket.on('parkingData', (data) => {
+      document.getElementById('carCount').textContent = data.count;
+      document.getElementById('availableSlots').textContent = data.available;
+      const parkingStatusEl = document.getElementById('parkingStatus');
+      parkingStatusEl.textContent = data.parkingStatus;
+      parkingStatusEl.className = data.parkingStatus === 'Available' ? 'available' : 'full';
+    });
+
+    socket.on('accessStatus', (data) => {
+      const accessMessageElement = document.getElementById('accessMessage');
+
+      if (data.status === 'granted') {
+        accessMessageElement.textContent = 'Access Granted';
+        accessMessageElement.className = 'message granted';
+      } else if (data.status === 'denied') {
+        accessMessageElement.textContent = 'Access Denied';
+        accessMessageElement.className = 'message denied';
+      }
+
+      setTimeout(() => {
+        accessMessageElement.textContent = 'Accessing...';
+        accessMessageElement.className = 'message';
+      }, 3000);
+    });
+
+    // Theme Toggle Logic
+    const toggleButton = document.getElementById('themeToggle');
+    toggleButton.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      toggleButton.innerHTML = document.body.classList.contains('dark') ?
+        '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        document.querySelector('.status-image-class').src = document.body.classList.contains('dark') ?
+        './dark.png' : './img.png';
+      
+    });
+  </script>
+</body>
+</html>
